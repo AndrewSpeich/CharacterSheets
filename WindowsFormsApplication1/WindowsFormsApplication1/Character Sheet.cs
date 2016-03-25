@@ -12,7 +12,9 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+        savehandler storage = new savehandler();
         NumberPropogate math = new NumberPropogate();
+        List<TextBox> alltextboxes = new List<TextBox>();
         List<TextBox> strength = new List<TextBox>();
         List<TextBox> dexterity = new List<TextBox>();
         List<TextBox> constitution = new List<TextBox>();
@@ -58,27 +60,50 @@ namespace WindowsFormsApplication1
         List<TextBox> skillsurvival = new List<TextBox>();
         List<TextBox> skillswim = new List<TextBox>();
         List<TextBox> skillusemagicdevice = new List<TextBox>();
+
         List<TextBox> acarmor = new List<TextBox>();
         List<TextBox> toucharmor = new List<TextBox>();
         List<TextBox> flatarmor = new List<TextBox>();
         List<TextBox> initiativecheck = new List<TextBox>();
         List<List<TextBox>> skills = new List<List<TextBox>>();
 
+        List<TextBox> fortitude = new List<TextBox>();
+        List<TextBox> reflex = new List<TextBox>();
+        List<TextBox> will = new List<TextBox>();
+        List<List<TextBox>> saves = new List<List<TextBox>>();
+
+        List<TextBox> cmdef = new List<TextBox>();
+        List<TextBox> cmbon = new List<TextBox>();
+        List<List<TextBox>> combatman = new List<List<TextBox>>();
+
+        List<TextBox> usesbab = new List<TextBox>();
+
+        List<TextBox> fortsave = new List<TextBox>();
+        List<TextBox> refsave = new List<TextBox>();
+        List<TextBox> willsave = new List<TextBox>();
+        List<List<TextBox>> saveslist = new List<List<TextBox>>();
+
+
+
 
         public Form1()
         {
             InitializeComponent();
 
-             skilllist();
-             skillsa2h();
-             skillsi2l();
-             skillsp2u();
-             statmodlists();
-             armorlist();
-
+             makeskilllist();
+             makeskillsa2h();
+             makeskillsi2l();
+             makeskillsp2u();
+             makestatmodlists();
+             makearmorlist();
+             makebablist();
+             makecombatmanlist();
+             makesaveslists();
+             addallthetextboxes();
+            populatedropbar();
 
         }
-        void armorlist()
+        void makearmorlist()
         {
             acarmor.Add(armorclass);
             acarmor.Add(dexarmor);
@@ -105,7 +130,7 @@ namespace WindowsFormsApplication1
             flatarmor.Add(miscmod);
 
         }
-        void statmodlists()
+        void makestatmodlists()
         {
             strength.Add(strmod);
             strength.Add(strcmd);
@@ -153,6 +178,7 @@ namespace WindowsFormsApplication1
             wisdom.Add(wisperception);
             wisdom.Add(wisprofession);
             wisdom.Add(wisprofession2);
+            wisdom.Add(wissensemotive);
             wisdom.Add(wissurvival);
 
             charisma.Add(chamod);
@@ -167,7 +193,7 @@ namespace WindowsFormsApplication1
 
 
         }
-        void skilllist()
+        void makeskilllist()
         {
             skills.Add(skillacrobatics);
             skills.Add(skillappraise);
@@ -210,7 +236,7 @@ namespace WindowsFormsApplication1
             skills.Add(skillusemagicdevice);
         }
 
-        void skillsa2h()
+        void makeskillsa2h()
         {
             skillacrobatics.Add(acrobatics);
             skillacrobatics.Add(dexacrobatics);
@@ -287,7 +313,7 @@ namespace WindowsFormsApplication1
 
         }
 
-        void skillsi2l()
+        void makeskillsi2l()
         {
 
             skillintimidate.Add(intimidate);
@@ -353,7 +379,7 @@ namespace WindowsFormsApplication1
 
         }
 
-        void skillsp2u()
+        void makeskillsp2u()
         {
 
             skillperception.Add(perception);
@@ -423,6 +449,95 @@ namespace WindowsFormsApplication1
 
 
         }
+
+        void makebablist()
+        {
+            usesbab.Add(cmbbab);
+            usesbab.Add(cmdbab);
+        }
+        void makecombatmanlist()
+        {
+
+            cmbon.Add(cmb);
+            cmbon.Add(cmbbab);
+            cmbon.Add(cmbsize);
+            cmbon.Add(strcmb);
+
+            cmdef.Add(cmd);
+            cmdef.Add(cmdbab);
+            cmdef.Add(cmdsize);
+            cmdef.Add(cmdten);
+            cmdef.Add(strcmd);
+            cmdef.Add(dexcmd);
+
+            combatman.Add(cmbon);
+            combatman.Add(cmdef);
+        }
+
+        void makesaveslists()
+        {
+            saveslist.Add(fortsave);
+            saveslist.Add(refsave);
+            saveslist.Add(willsave);
+
+            fortsave.Add(fortbonus);
+            fortsave.Add(classfort);
+            fortsave.Add(confort);
+            fortsave.Add(fortmagic);
+            fortsave.Add(fortmisc);
+            fortsave.Add(forttemp);
+
+            refsave.Add(reflexbonus);
+            refsave.Add(classreflex);
+            refsave.Add(dexreflex);
+            refsave.Add(magicref);
+            refsave.Add(miscref);
+            refsave.Add(reftemp);
+
+            willsave.Add(willbonus);
+            willsave.Add(classwill);
+            willsave.Add(wiswill);
+            willsave.Add(magicwill);
+            willsave.Add(miscwill);
+            willsave.Add(tempwill);
+        }
+
+        void addallthetextboxes()
+        {
+
+            IEnumerable<Control> controllist = getAllTextBoxes(this);
+          
+            foreach (TextBox index in controllist)
+            {
+             
+                    alltextboxes.Add(index);
+                
+            }
+
+        }
+        IEnumerable<Control> getAllTextBoxes(Control container)
+        {
+            List<Control> controlList = new List<Control>();
+            foreach (Control c in container.Controls)
+            {
+                controlList.AddRange(getAllTextBoxes(c));
+                if (c is TextBox)
+                {
+                    controlList.Add(c);
+                }
+
+            }
+            return controlList;
+        }
+
+        void populatedropbar()
+        {
+            saveholder.Items.Clear();
+            foreach(String text in storage.getsaves())
+           saveholder.Items.Add(  text );
+        }
+
+        
         private void strstat_TextChanged(object sender, EventArgs e)
         {
             try
@@ -434,7 +549,14 @@ namespace WindowsFormsApplication1
 
             }
             math.setmod(strength, strstat);
-
+            foreach (List<TextBox> skill in skills)
+            {
+                math.addUp(skill);
+            }
+            foreach (List<TextBox> usebab in combatman)
+            {
+                math.addUp(usebab);
+            }
         }
 
         private void dexstat_TextChanged(object sender, EventArgs e)
@@ -448,6 +570,14 @@ namespace WindowsFormsApplication1
 
             }
             math.setmod(dexterity, dexstat);
+            foreach (List<TextBox> skill in skills)
+            {
+                math.addUp(skill);
+            }
+            foreach (List<TextBox> usebab in combatman)
+            {
+                math.addUp(usebab);
+            }
         }
 
         private void constat_TextChanged(object sender, EventArgs e)
@@ -461,6 +591,10 @@ namespace WindowsFormsApplication1
 
             }
             math.setmod(constitution, constat);
+            foreach (List<TextBox> skill in skills)
+            {
+                math.addUp(skill);
+            }
         }
 
         private void intstat_TextChanged(object sender, EventArgs e)
@@ -474,6 +608,10 @@ namespace WindowsFormsApplication1
 
             }
             math.setmod(intelligence, intstat);
+            foreach (List<TextBox> skill in skills)
+            {
+                math.addUp(skill);
+            }
         }
 
         private void wisstat_TextChanged(object sender, EventArgs e)
@@ -487,6 +625,10 @@ namespace WindowsFormsApplication1
 
             }
             math.setmod(wisdom, wisstat);
+            foreach (List<TextBox> skill in skills)
+            {
+                math.addUp(skill);
+            }
         }
 
         private void chastat_TextChanged(object sender, EventArgs e)
@@ -501,6 +643,10 @@ namespace WindowsFormsApplication1
 
             }
             math.setmod(charisma, chastat);
+            foreach (List<TextBox> skill in skills)
+            {
+                math.addUp(skill);
+            }
         }
 
         private void groupBox5_Enter(object sender, EventArgs e)
@@ -517,6 +663,64 @@ namespace WindowsFormsApplication1
             {
                 math.addUp(skill);
             }
+
+        }
+
+        private void bab_TextChanged(object sender, EventArgs e)
+        {
+            foreach (TextBox usebab in usesbab)
+            {
+                int babnum = 0;
+                try
+                {
+                     babnum = int.Parse(bab.Text);
+                }
+                catch
+                {
+
+                }
+                usebab.Text = babnum.ToString();
+            }
+            foreach (List<TextBox> usebab in combatman)
+            {
+                math.addUp(usebab);
+            }
+        }
+
+        private void save_Click(object sender, EventArgs e)
+        {
+            string savename = saveholder.Text;
+            List<string> info = new List<string>();
+            info.Add(savename);
+            foreach(TextBox text in alltextboxes)
+            {
+                info.Add(text.Text);
+            }
+
+
+
+            storage.savestuff(info);
+            populatedropbar();
+
+        }
+
+        private void load_Click(object sender, EventArgs e)
+        {
+            List<string> loaded = new List<string>();
+            loaded = storage.loadstuff(saveholder.Text);
+
+            loaded.RemoveAt(0);
+            int index = 0;
+            foreach(string load in loaded)
+            {
+                alltextboxes[index].Text = load;
+                index++;
+            }
+            populatedropbar();
+        }
+
+        private void featsspellsequimentpage_Click(object sender, EventArgs e)
+        {
 
         }
     }

@@ -52,6 +52,7 @@
     <Compile Include="Character Sheet.Designer.cs">
       <DependentUpon>Character Sheet.cs</DependentUpon>
     </Compile>
+    <Compile Include="savehandler.cs" />
     <Compile Include="NumberPropogate.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
