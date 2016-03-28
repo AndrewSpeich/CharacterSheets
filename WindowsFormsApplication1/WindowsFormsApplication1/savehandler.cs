@@ -58,6 +58,7 @@ namespace WindowsFormsApplication1
         }
         public List<String> getsaves()
         {
+            
             System.IO.StreamWriter filewrite = new System.IO.StreamWriter("../Character Sheet.char", true);
             filewrite.Close();
             System.IO.StreamReader file = new System.IO.StreamReader("../Character Sheet.char", true);

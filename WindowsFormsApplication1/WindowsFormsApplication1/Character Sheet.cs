@@ -719,10 +719,7 @@ namespace WindowsFormsApplication1
             populatedropbar();
         }
 
-        private void featsspellsequimentpage_Click(object sender, EventArgs e)
-        {
-
-        }
+       
     }
     
 }
