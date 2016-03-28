@@ -7758,7 +7758,7 @@
             this.featsspellsequimentpage.TabIndex = 1;
             this.featsspellsequimentpage.Text = "Equipment";
             this.featsspellsequimentpage.UseVisualStyleBackColor = true;
-            this.featsspellsequimentpage.Click += new System.EventHandler(this.featsspellsequimentpage_Click);
+
              
              
              

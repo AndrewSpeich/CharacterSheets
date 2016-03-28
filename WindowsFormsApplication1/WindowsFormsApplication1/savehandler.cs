@@ -17,6 +17,7 @@ namespace WindowsFormsApplication1
         private List<string> checkoverwrite(string check)
         {
             List<string> newlist = new List<string>();
+          
             System.IO.StreamReader fileread = new System.IO.StreamReader("../Character Sheet.char", true);
 
             List<string> fullfile = System.IO.File.ReadAllLines("../Character Sheet.char").ToList<string>();
@@ -32,6 +33,13 @@ namespace WindowsFormsApplication1
         }
         public void savestuff( List<String> savedata)
         {
+            
+            if (savedata[0].Contains("&") || savedata[0].Contains("#") || savedata[0].Contains("%"))
+            {
+                savedata[0] = savedata[0].Replace('%', ' ');
+                savedata[0] = savedata[0].Replace('#', ' ');
+                savedata[0] = savedata[0].Replace('&', ' ');
+            }
             savedata[0] = "##" + savedata[0];
            
 
